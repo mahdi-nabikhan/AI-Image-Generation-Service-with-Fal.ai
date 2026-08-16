@@ -10,7 +10,7 @@ class Settings(BaseSettings):
         SQLALCHEMY_DATABASE_URL: SQLAlchemy database connection URL.
     """
     
-    SQLALCHEMY_DATABASE_URL: str = "sqlite:///./app.db"
+    SQLALCHEMY_DATABASE_URL: str = "sqlite:///./sqlite.db"
 
     model_config = SettingsConfigDict(
         env_file=Path(__file__).parent / ".env"
