@@ -82,12 +82,12 @@ async def generate_image(
         }
 
     except Exception as exc:
-   
+        db.rollback()
+
         user.balance_ai += GENERATION_COST
         db.commit()
-
         raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
+         status_code=status.HTTP_502_BAD_GATEWAY,
             detail="Failed to submit image generation request.",
         ) from exc
         
@@ -117,10 +117,10 @@ def process_generation_callback(db: Session,request_id: str,generation_status: s
     """
 
     generation_job = db.scalar(
-        select(GenerationJobModel).where(
-            GenerationJobModel.request_id == request_id
-        )
-    )
+    select(GenerationJobModel)
+    .where(
+        GenerationJobModel.request_id == request_id)
+    .with_for_update())
 
     if generation_job is None:
         raise HTTPException(
