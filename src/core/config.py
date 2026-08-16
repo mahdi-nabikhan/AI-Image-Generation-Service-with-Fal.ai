@@ -12,8 +12,9 @@ class Settings(BaseSettings):
     
     SQLALCHEMY_DATABASE_URL: str = "sqlite:///./sqlite.db"
 
+    FAL_KEY: str
     model_config = SettingsConfigDict(
-        env_file=Path(__file__).parent / ".env"
+        env_file=Path(__file__).parent.parent / ".env"
     )
 
 
