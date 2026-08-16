@@ -1,8 +1,9 @@
 from fastapi import APIRouter,Depends
 from sqlalchemy.orm import Session
-from .schemas import (GenerationRequest,GenerationResponse,GenerationCallback)
+from .schemas import (GenerationRequest,GenerationResponse,GenerationCallback,UserGenerationJobResponse)
 from core.database import get_db
 from .service import (generate_image,process_generation_callback)
+from .models import GenerationJobModel
 
 
 router = APIRouter(
@@ -45,3 +46,21 @@ async def generation_callback(
             else None
         ),
     )
+    
+    
+    
+    
+@router.get("/my-files/{user_id}",response_model=list[UserGenerationJobResponse])
+def get_user_generation_files(user_id: int,db: Session = Depends(get_db)):
+    """
+    Retrieve all generation jobs for a specific user.
+    """
+
+    jobs = (
+        db.query(GenerationJobModel)
+        .filter(GenerationJobModel.user_id == user_id)
+        .order_by(GenerationJobModel.id.desc())
+        .all()
+    )
+
+    return jobs

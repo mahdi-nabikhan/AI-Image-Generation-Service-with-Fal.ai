@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URL: str = "sqlite:///./sqlite.db"
 
     FAL_KEY: str
-    WEBHOOK_URL: str = ''
+    WEBHOOK_URL: str 
     model_config = SettingsConfigDict(
         env_file=Path(__file__).parent.parent / ".env"
     )

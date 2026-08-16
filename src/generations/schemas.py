@@ -1,7 +1,7 @@
 from enum import Enum
 from pydantic import BaseModel, Field
 from typing import Any
-
+from typing import Optional
 
 class GenerationStatus(str, Enum):
     IN_QUEUE = "IN_QUEUE"
@@ -54,3 +54,19 @@ class GenerationCallback(BaseModel):
     request_id: str
     status: str
     payload: dict[str, Any] | None = None
+    
+    
+
+
+
+class UserGenerationJobResponse(BaseModel):
+    id: int
+    request_id: str
+    prompt: str
+    status: str
+    cost: float
+    is_refunded: bool
+    result_url: Optional[str] = None
+
+    class Config:
+        from_attributes = True
