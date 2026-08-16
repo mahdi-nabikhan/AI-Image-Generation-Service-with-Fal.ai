@@ -2,9 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.vscode
 # C extensions
 *.so
+sqlite.db
 
 # Distribution / packaging
 .Python

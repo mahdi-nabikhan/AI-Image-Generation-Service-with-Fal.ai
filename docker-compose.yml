@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: ai-image-service
+
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - src/.env
+
+    restart: always
+
+    volumes:
+      - ./src:/app
