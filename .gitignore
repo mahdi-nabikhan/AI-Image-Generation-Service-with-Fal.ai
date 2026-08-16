@@ -5,6 +5,7 @@ __pycache__/
 .vscode
 # C extensions
 *.so
+sqlite.db
 
 # Distribution / packaging
 .Python
