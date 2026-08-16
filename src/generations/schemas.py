@@ -1,6 +1,6 @@
 from enum import Enum
-
 from pydantic import BaseModel, Field
+from typing import Any
 
 
 class GenerationStatus(str, Enum):
@@ -37,3 +37,20 @@ class GenerationResponse(BaseModel):
     request_id: str
     status: GenerationStatus
     cost: float
+    
+
+
+
+
+class GenerationCallback(BaseModel):
+    """
+    Payload received from Fal.ai after an image generation job completes.
+
+    Attributes:
+        request_id: Unique identifier of the generation request assigned by Fal.ai.
+        status: Final generation status, such as SUCCESS or FAILED.
+        payload: Optional result payload returned by Fal.ai.
+    """
+    request_id: str
+    status: str
+    payload: dict[str, Any] | None = None
